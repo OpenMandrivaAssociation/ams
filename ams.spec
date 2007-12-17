@@ -11,7 +11,6 @@ Source:		http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.b
 URL:		http://alsamodular.sourceforge.net/
 License:	GPL
 Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 
 Requires:	cmt swh-plugins vco-plugins rev-plugins mcp-plugins
 BuildRequires:	fftw2-devel qt3-devel jackit-devel alsa-lib-devel
