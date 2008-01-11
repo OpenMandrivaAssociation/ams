@@ -47,10 +47,6 @@ cp %name $RPM_BUILD_ROOT/%_bindir
 cp demos/*.ams $RPM_BUILD_ROOT/%_datadir/%name
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): command="%{name}" icon="sound_section.png" needs="x11" title="Alsa Modular Synth" longtitle="Modular Synthesizer for ALSA" section="Multimedia/Sound" xdg="true"
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -79,6 +75,5 @@ rm -rf $RPM_BUILD_ROOT
 %doc README THANKS
 %{_bindir}/%name
 %{_datadir}/%name
-%{_menudir}/%name
 %{_datadir}/applications/mandriva-%{name}.desktop
 
