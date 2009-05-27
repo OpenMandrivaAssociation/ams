@@ -1,6 +1,6 @@
 %define name	ams
 %define version	2.0.0
-%define release %mkrel 0.rc1.1
+%define release %mkrel 0.rc1.2
 
 Name: 	 	%{name}
 Summary: 	Alsa modular synth
