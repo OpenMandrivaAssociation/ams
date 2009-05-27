@@ -1,21 +1,30 @@
 %define name	ams
-%define version	1.8.7
-%define release %mkrel 3
+%define version	2.0.0
+%define release %mkrel 0.rc1.1
 
 Name: 	 	%{name}
 Summary: 	Alsa modular synth
 Version: 	%{version}
 Release: 	%{release}
 
-Source:		http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
 URL:		http://alsamodular.sourceforge.net/
+Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}-rc1.tar.bz2
+Patch0:     ams-2.0.0-rc1-fix-strings-errors.patch
 License:	GPL
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 
-Requires:	cmt swh-plugins vco-plugins rev-plugins mcp-plugins
-BuildRequires:	fftw2-devel qt3-devel jackit-devel alsa-lib-devel
-BuildRequires:	ladspa-devel clalsadrv-devel
+Requires:	cmt 
+Requires:   swh-plugins 
+Requires:   vco-plugins 
+Requires:   rev-plugins 
+Requires:   mcp-plugins
+BuildRequires:	fftw2-devel 
+BuildRequires:  qt4-devel 
+BuildRequires:  jackit-devel 
+BuildRequires:  alsa-lib-devel
+BuildRequires:	ladspa-devel 
+BuildRequires:  clalsadrv-devel
 
 %description
 AlsaModularSynth is a realtime modular synthesizer and effect processor.
@@ -28,24 +37,27 @@ It features:
 
 NOTE: Example files are in /usr/share/ams
 
+
+%files
+%defattr(-,root,root)
+%doc README THANKS
+%{_bindir}/%name
+%{_datadir}/%name
+%{_datadir}/applications/mandriva-%{name}.desktop
+%{_mandir}/man1/ams.1.*
+%{_datadir}/pixmaps/ams_32.xpm
+#--------------------------------------------------------------------
+
 %prep
-%setup -q
-perl -p -i -e "s|-O2|$RPM_OPT_FLAGS||g" Makefile
-perl -p -i -e 's/BASE_DIR\)\/lib/BASE_DIR\)\/%{_lib}/g' Makefile
-perl -p -i -e 's/usr\/X11R6\/lib/usr\/X11R6\/%{_lib}/g' Makefile
-perl -p -e -e 's/lib\/ladspa/${_lib}\/ladspa/g' Makefile
+%setup -q -n %name-%version-rc1
+%patch0 -p0
 
 %build
+%configure2_5x
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%_bindir
-mkdir -p $RPM_BUILD_ROOT/%_datadir/%name
-cp %name $RPM_BUILD_ROOT/%_bindir
-# examples files move to demos ?
-cp demos/*.ams $RPM_BUILD_ROOT/%_datadir/%name
-
+make DESTDIR=%buildroot install
 #menu
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
@@ -63,21 +75,3 @@ EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-		
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
-
-%files
-%defattr(-,root,root)
-%doc README THANKS
-%{_bindir}/%name
-%{_datadir}/%name
-%{_datadir}/applications/mandriva-%{name}.desktop
-
