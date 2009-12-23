@@ -1,6 +1,6 @@
 %define name	ams
 %define version	2.0.0
-%define release %mkrel 0.rc1.2
+%define release %mkrel 1
 
 Name: 	 	%{name}
 Summary: 	Alsa modular synth
@@ -8,8 +8,8 @@ Version: 	%{version}
 Release: 	%{release}
 
 URL:		http://alsamodular.sourceforge.net/
-Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}-rc1.tar.bz2
-Patch0:     ams-2.0.0-rc1-fix-strings-errors.patch
+Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
+Patch0:     ams-2.0.0-fix-strings-errors.patch
 License:	GPL
 Group:		Sound
 BuildRoot:	%{_tmppath}/%{name}-buildroot
@@ -49,7 +49,7 @@ NOTE: Example files are in /usr/share/ams
 #--------------------------------------------------------------------
 
 %prep
-%setup -q -n %name-%version-rc1
+%setup -q -n %name-%version
 %patch0 -p0
 
 %build
@@ -57,6 +57,7 @@ NOTE: Example files are in /usr/share/ams
 %make
 
 %install
+rm -rf $RPM_BUILD_ROOT
 make DESTDIR=%buildroot install
 #menu
 
