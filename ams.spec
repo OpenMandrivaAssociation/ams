@@ -1,29 +1,28 @@
-%define name	ams
-%define version	2.0.0
+%define name    ams
+%define version 2.0.0
 %define release %mkrel 1
 
-Name: 	 	%{name}
-Summary: 	Alsa modular synth
-Version: 	%{version}
-Release: 	%{release}
+Name:       %{name}
+Summary:    Alsa modular synth
+Version:    %{version}
+Release:    %{release}
 
-URL:		http://alsamodular.sourceforge.net/
+URL:        http://alsamodular.sourceforge.net/
 Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
-Patch0:     ams-2.0.0-fix-strings-errors.patch
-License:	GPL
-Group:		Sound
-BuildRoot:	%{_tmppath}/%{name}-buildroot
+License:    GPLv2
+Group:      Sound
+BuildRoot:  %{_tmppath}/%{name}-buildroot
 
-Requires:	cmt 
+Requires:   cmt 
 Requires:   swh-plugins 
 Requires:   vco-plugins 
 Requires:   rev-plugins 
 Requires:   mcp-plugins
-BuildRequires:	fftw2-devel 
+BuildRequires:  fftw2-devel 
 BuildRequires:  qt4-devel 
 BuildRequires:  jackit-devel 
 BuildRequires:  alsa-lib-devel
-BuildRequires:	ladspa-devel 
+BuildRequires:  ladspa-devel 
 BuildRequires:  clalsadrv-devel
 
 %description
@@ -50,17 +49,16 @@ NOTE: Example files are in /usr/share/ams
 
 %prep
 %setup -q -n %name-%version
-%patch0 -p0
 
 %build
-%configure2_5x
-%make
+./configure --prefix=%{_prefix} --mandir=%{_mandir}
+make %{_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=%buildroot install
-#menu
+%makeinstall_std
 
+#menu
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
