@@ -1,5 +1,5 @@
 %define name    ams
-%define version 2.0.0
+%define version 2.0.1
 %define release %mkrel 1
 
 Name:       %{name}
@@ -9,6 +9,7 @@ Release:    %{release}
 
 URL:        http://alsamodular.sourceforge.net/
 Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
+Patch0:     ams-2.0.1-fix-strfmt.patch
 License:    GPLv2
 Group:      Sound
 BuildRoot:  %{_tmppath}/%{name}-buildroot
@@ -49,10 +50,11 @@ NOTE: Example files are in /usr/share/ams
 
 %prep
 %setup -q -n %name-%version
+%patch0 -p1
 
 %build
-./configure --prefix=%{_prefix} --mandir=%{_mandir}
-make %{_smp_mflags}
+%configure2_5x
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT
