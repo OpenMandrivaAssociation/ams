@@ -3,7 +3,7 @@
 %define release %mkrel 1
 
 Name:       %{name}
-Summary:    Alsa modular synth
+Summary:    Alsa Modular Synth
 Version:    %{version}
 Release:    %{release}
 
@@ -12,7 +12,6 @@ Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.ta
 Patch0:     ams-2.0.1-fix-strfmt.patch
 License:    GPLv2
 Group:      Sound
-BuildRoot:  %{_tmppath}/%{name}-buildroot
 
 Requires:   cmt 
 Requires:   swh-plugins 
@@ -57,17 +56,17 @@ NOTE: Example files are in /usr/share/ams
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 #menu
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+mkdir -p %{buildroot}/%{_datadir}/applications
+cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Alsa Modular Synth
 Comment=Modular Synthesizer for ALSA
 Exec=%{_bindir}/%{name} 
-Icon=sound_section
+Icon=%{_datadir}/pixmaps/ams_32.xpm
 Terminal=false
 Type=Application
 StartupNotify=true
@@ -75,4 +74,3 @@ Categories=X-MandrivaLinux-Multimedia-Sound;AudioVideo;Audio;AudioVideoEditing;
 EOF
 
 %clean
-rm -rf $RPM_BUILD_ROOT
