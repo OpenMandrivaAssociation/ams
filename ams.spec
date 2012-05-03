@@ -1,11 +1,7 @@
-%define name    ams
-%define version 2.0.1
-%define release %mkrel 3
-
-Name:       %{name}
+Name:       ams
 Summary:    Alsa Modular Synth
-Version:    %{version}
-Release:    %{release}
+Version:    2.0.1
+Release:    2
 
 URL:        http://alsamodular.sourceforge.net/
 Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
@@ -13,16 +9,16 @@ Patch0:     ams-2.0.1-fix-strfmt.patch
 License:    GPLv2
 Group:      Sound
 
-Requires:   cmt 
-Requires:   swh-plugins 
-Requires:   vco-plugins 
-Requires:   rev-plugins 
+Requires:   cmt
+Requires:   swh-plugins
+Requires:   VCO-plugins
+Requires:   rev-plugins
 Requires:   mcp-plugins
-BuildRequires:  fftw2-devel 
-BuildRequires:  qt4-devel 
-BuildRequires:  jackit-devel 
-BuildRequires:  alsa-lib-devel
-BuildRequires:  ladspa-devel 
+BuildRequires:  fftw2-devel
+BuildRequires:  qt4-devel
+BuildRequires:  jackit-devel
+BuildRequires:  libalsa-devel
+BuildRequires:  ladspa-devel
 BuildRequires:  clalsadrv-devel
 
 %description
@@ -52,7 +48,7 @@ NOTE: Example files are in /usr/share/ams
 %patch0 -p1
 
 %build
-%configure2_5x
+LDFLAGS="-ldl" %configure2_5x --with-ladspa-path=%{_libdir}/ladspa
 %make
 
 %install
@@ -65,12 +61,10 @@ cat > %{buildroot}/%{_datadir}/applications/mandriva-%{name}.desktop << EOF
 [Desktop Entry]
 Name=Alsa Modular Synth
 Comment=Modular Synthesizer for ALSA
-Exec=%{_bindir}/%{name} 
+Exec=%{_bindir}/%{name}
 Icon=%{_datadir}/pixmaps/ams_32.xpm
 Terminal=false
 Type=Application
 StartupNotify=true
 Categories=X-MandrivaLinux-Multimedia-Sound;AudioVideo;Audio;AudioVideoEditing;
 EOF
-
-%clean
