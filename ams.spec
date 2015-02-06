@@ -1,7 +1,7 @@
 Name:       ams
 Summary:    Alsa Modular Synth
 Version:    2.0.1
-Release:    4
+Release:    5
 
 URL:        http://alsamodular.sourceforge.net/
 Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
