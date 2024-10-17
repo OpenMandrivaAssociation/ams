@@ -3,7 +3,7 @@ Summary:    Alsa Modular Synth
 Version:    2.0.1
 Release:    5
 
-URL:        http://alsamodular.sourceforge.net/
+URL:        https://alsamodular.sourceforge.net/
 Source:     http://prdownloads.sourceforge.net/alsamodular/%{name}-%{version}.tar.bz2
 Patch0:     ams-2.0.1-fix-strfmt.patch
 License:    GPLv2
