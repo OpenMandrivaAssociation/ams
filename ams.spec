@@ -1,11 +1,13 @@
 Summary:		Alsa Modular Synth
 Name:	ams
 Version:	   2.2.1
-Release:		1
+Release:		2
 License:	GPLv2+
 Group:	Sound
 Url:	https://alsamodular.sourceforge.net/
 Source0:	https://sourceforge.net/projects/alsamodular/files/alsamodular/%{version}/%{name}-%{version}.tar.xz
+# Provide a desktop file
+Patch0:	ams-2.2.1-add-desktop-file.patch
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	clalsadrv-devel
 BuildRequires:	ladspa-devel
@@ -21,8 +23,7 @@ Requires:	cmt
 Requires:	mcp-plugins
 Requires:	rev-plugins
 Requires:	swh-plugins
-# Missing
-#Requires:   VCO-plugins
+Requires:	vco-plugins
 
 %description
 AlsaModularSynth is a realtime modular synthesizer and effect processor.
@@ -38,7 +39,7 @@ NOTE: Example files are kept in %{_datadir}/ams.
 %doc AUTHORS COPYING NEWS README
 %{_bindir}/%{name}
 %{_datadir}/%{name}
-%{_datadir}/applications/openmandriva-%{name}.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1.*
 %{_datadir}/pixmaps/%{name}_32.xpm
 
@@ -59,19 +60,6 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %install
 %make_install
 
-# Provide a menu entry
+# Install the source provided desktop file
 mkdir -p %{buildroot}/%{_datadir}/applications
-cat > %{buildroot}/%{_datadir}/applications/openmandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=Alsa Modular Synth
-Comment=Modular Synthesizer for ALSA
-Exec=%{name}
-Icon=%{name}_32
-Terminal=false
-Type=Application
-X-NSM-Capable=true
-X-NSM-Exec=ams
-StartupNotify=true
-Categories=X-OpenMandrivaLinux-Multimedia-Sound;AudioVideo;Audio;AudioVideoEditing;
-Keywords=music;synthesiser;softsynth;midi;alsa;jack;realtime;standalone;
-EOF
+install -m 0644 %{name}.desktop %{buildroot}/%{_datadir}/applications
