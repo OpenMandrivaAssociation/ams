@@ -8,6 +8,11 @@ Url:	https://alsamodular.sourceforge.net/
 Source0:	https://sourceforge.net/projects/alsamodular/files/alsamodular/%{version}/%{name}-%{version}.tar.xz
 # Provide a desktop file
 Patch0:	ams-2.2.1-add-desktop-file.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	qt5-linguist-tools
 BuildRequires:	clalsadrv-devel
 BuildRequires:	ladspa-devel
